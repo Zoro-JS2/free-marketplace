@@ -1,4 +1,22 @@
 .serachbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  align-items: center;
+  // border: 2px solid red;
+}
+.calback {
+  display: flex;
+  align-items: center;
+}
+.login {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.login p:hover {
+  color: rgb(209, 253, 239);
+}
+.user-info {
+  display: flex;
+  align-items: center;
 }

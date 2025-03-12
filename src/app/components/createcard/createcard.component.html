@@ -1,0 +1,21 @@
+<app-nav></app-nav>
+<form (submit)="publishCard()" enctype="multipart/form-data">
+  <!-- <label for="image">Загрузите фото:</label>
+  <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+
+  <div *ngIf="imageUrl">
+    <p>Попередній перегляд:</p>
+    <img [src]="imageUrl" alt="Preview" style="max-width: 200px" />
+  </div> -->
+
+  <label>Назва:</label>
+  <input type="text" [(ngModel)]="title" name="title" required />
+
+  <label>Опис:</label>
+  <textarea [(ngModel)]="info" name="info" required></textarea>
+
+  <label>Ціна:</label>
+  <input type="text" [(ngModel)]="price" name="price" required />
+
+  <button type="submit">Опубликовать</button>
+</form>

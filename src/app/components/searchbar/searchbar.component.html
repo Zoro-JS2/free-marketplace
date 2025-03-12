@@ -4,14 +4,19 @@
     <input type="text" name="" id="" />
     <button>Знайти</button>
   </div>
-  <div>
+  <div class="calback">
     <img src="" alt="" />
     <h2>428</h2>
     <p>Безкоштовно</p>
   </div>
-  <div>
+  <div class="login" *ngIf="!userEmail" (click)="openLoginDialog()">
     <mat-icon fontIcon="home" class="material-icons-outlined"></mat-icon>
     <p>Увійти</p>
+  </div>
+
+  <div class="user-info" *ngIf="userEmail">
+    <p>{{ userEmail }}</p>
+    <button mat-button (click)="logout()">Вийти</button>
   </div>
   <mat-icon fontIcon="compare" class="material-icons-outlined"></mat-icon>
 </div>

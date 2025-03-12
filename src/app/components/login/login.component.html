@@ -1,0 +1,25 @@
+<form class="form" (ngSubmit)="login()">
+  <span class="input-span">
+    <label for="email" class="label">Пошта</label>
+    <input type="email" name="email" id="email" [(ngModel)]="email" required />
+  </span>
+
+  <span class="input-span">
+    <label for="password" class="label">Пароль</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      [(ngModel)]="password"
+      required
+    />
+  </span>
+
+  <span class="span"><a href="#">Забув пароль?</a></span>
+
+  <input class="submit" type="submit" value="Log in" />
+
+  <span class="span">Ви ще не маєте аккаунту? <a href="#">Sign up</a></span>
+
+  <button mat-button (click)="closeDialog()">Х</button>
+</form>
