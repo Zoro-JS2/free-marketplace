@@ -15,9 +15,27 @@ export class HomeComponent {
   products: any[] = [];
 
   constructor(private cardService: CardService) {}
+
   ngOnInit() {
-    this.cardService.products$.subscribe((data) => {
-      this.products = data;
-    });
+    this.loadProducts();
+  }
+  loadProducts() {
+    const storedCards = JSON.parse(localStorage.getItem('products') || '[]');
+
+    this.products = [
+      {
+        title: 'Ноутбук',
+        info: 'Product description...',
+        price: '31.000',
+        status: false,
+      },
+      {
+        title: 'Ноутбук',
+        info: 'Product description...',
+        price: '32.000',
+        status: true,
+      },
+      ...storedCards, // Добавляем сохранённые карточки
+    ];
   }
 }

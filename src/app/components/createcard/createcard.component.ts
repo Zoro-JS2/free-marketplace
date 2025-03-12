@@ -30,19 +30,30 @@ export class CreatecardComponent {
   // }
 
   publishCard() {
-    if (this.title && this.info && this.price) {
-      const newCard = {
-        title: this.title,
-        info: this.info,
-        price: this.price,
-        status: false,
-      };
-      console.log(newCard);
-      this.cardService.addProduct(newCard);
-      this.title = '';
-      this.info = '';
-      this.price = '';
-      this.imageUrl = null;
+    if (!this.title || !this.info || !this.price) {
+      alert('Будь ласка, заповніть всі поля!');
+      return;
     }
+
+    const newCard = {
+      title: this.title,
+      info: this.info,
+      price: this.price,
+      status: false,
+      imageUrl: this.imageUrl,
+    };
+
+    // Получаем текущие карточки, добавляем новую и сохраняем
+    const storedCards = JSON.parse(localStorage.getItem('products') || '[]');
+    storedCards.push(newCard);
+    localStorage.setItem('products', JSON.stringify(storedCards));
+
+    // Очищаем форму
+    this.title = '';
+    this.info = '';
+    this.price = '';
+    this.imageUrl = null;
+
+    alert('Карточка успішно опублікована!');
   }
 }
