@@ -1,6 +1,6 @@
 <app-nav></app-nav>
 <form (submit)="publishCard()" enctype="multipart/form-data">
-  <label for="image">Загрузите фото:</label>
+  <label for="image">Завантажте фото:</label>
   <input type="file" (change)="onFileSelected($event)" accept="image/*" />
 
   <div *ngIf="imageUrl">
