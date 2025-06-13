@@ -18,3 +18,12 @@ a:hover {
 .create a {
   color: red;
 }
+.cart-counter {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  position: absolute;
+  top: 5px;
+}

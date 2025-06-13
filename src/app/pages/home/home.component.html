@@ -1,8 +1,13 @@
 <main class="main">
   <div class="content">
     <app-nav></app-nav>
-    <app-searchbar></app-searchbar>
-    <div class="cardArea">
+    <div class="searchbar">
+      <app-searchbar
+        (searchTextChanged)="onSearchInputChanged($event)"
+      ></app-searchbar>
+      <button *ngIf="visibleAll == false" (click)="ClearFilter()">Х</button>
+    </div>
+    <div class="cardArea" *ngIf="visibleAll == true">
       <div
         class="row"
         *ngFor="let chunk of [products.slice(0, 5), products.slice(5)]"
@@ -13,9 +18,27 @@
           [info]="product.info"
           [price]="product.price"
           [status]="product.status"
-          [image]="product.image"
+          [image]="product.imageUrl"
+          (deleted)="onCardDeleted($event)"
         ></app-card>
       </div>
+    </div>
+  </div>
+  <div class="cardArea" *ngIf="visibleAll == false">
+    <div
+      class="row"
+      *ngFor="
+        let chunk of [filteredProducts.slice(0, 5), filteredProducts.slice(5)]
+      "
+    >
+      <app-card
+        *ngFor="let product of chunk"
+        [title]="product.title"
+        [info]="product.info"
+        [price]="product.price"
+        [status]="product.status"
+        [image]="product.image"
+      ></app-card>
     </div>
   </div>
 </main>

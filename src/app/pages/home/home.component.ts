@@ -13,11 +13,18 @@ import { CardService } from '../../card.service';
 })
 export class HomeComponent {
   products: any[] = [];
-
+  visibleAll: boolean = true;
+  filteredProducts = this.products;
   constructor(private cardService: CardService) {}
 
   ngOnInit() {
-    this.loadProducts();
+    const stored = localStorage.getItem('products');
+
+    if (stored?.length == 0) {
+      this.loadProducts();
+    } else {
+      this.products = stored ? JSON.parse(stored) : [];
+    }
   }
   loadProducts() {
     const storedCards = JSON.parse(localStorage.getItem('products') || '[]');
@@ -37,5 +44,22 @@ export class HomeComponent {
       },
       ...storedCards, // Добавляем сохранённые карточки
     ];
+  }
+  onSearchInputChanged(searchText: string) {
+    this.visibleAll = false;
+    const lowerSearch = searchText.toLowerCase();
+    this.filteredProducts = this.products.filter((storedCards) =>
+      storedCards.title.toLowerCase().includes(lowerSearch)
+    );
+  }
+  ClearFilter() {
+    this.visibleAll = true;
+    this.filteredProducts = this.products.filter((product) =>
+      product.title.toLowerCase().includes()
+    );
+  }
+  onCardDeleted(title: string): void {
+    this.products = this.products.filter((product) => product.title !== title);
+    localStorage.setItem('products', JSON.stringify(this.products));
   }
 }

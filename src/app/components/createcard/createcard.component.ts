@@ -18,16 +18,16 @@ export class CreatecardComponent {
 
   constructor(private cardService: CardService) {}
 
-  // onFileSelected(event: any) {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       this.imageUrl = reader.result;
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // }
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   publishCard() {
     if (!this.title || !this.info || !this.price) {

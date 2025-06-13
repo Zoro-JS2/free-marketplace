@@ -1,0 +1,37 @@
+.order-title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.order-item {
+  display: flex;
+  width: 80%;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.order-img {
+  width: 14em;
+  height: auto;
+  margin-right: 20px;
+}
+
+.order-details {
+  width: 30%;
+}
+.order-details p {
+  width: 40%;
+}
+.order-details h3 {
+  width: 40%;
+}
+.list-info {
+  display: flex;
+  justify-content: space-around;
+  width: 88%;
+  font-size: 16px;
+  font-weight: 700;
+}

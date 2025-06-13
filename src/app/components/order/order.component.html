@@ -1,0 +1,39 @@
+<app-nav></app-nav>
+
+<h2 class="order-title">Ваше замовлення</h2>
+<button *ngIf="selectedProducts.length !== 0" (click)="clearCart()">
+  Очистити все
+</button>
+<div *ngIf="selectedProducts.length === 0">
+  <p style="text-align: center">Ваш кошик порожній.</p>
+</div>
+<div class="list-info" *ngIf="selectedProducts.length !== 0">
+  <span>Зображення </span>
+  <span>Опис </span>
+</div>
+
+<div *ngFor="let product of selectedProducts; let i = index" class="order-item">
+  <div class="order-img-wrapper">
+    <img
+      *ngIf="product.image || product.imageUrl; else noImage"
+      [src]="product.image || product.imageUrl"
+      alt="{{ product.title }}"
+      class="order-img"
+    />
+    <ng-template #noImage>
+      <p class="no-image-text">не додано зображення</p>
+    </ng-template>
+  </div>
+  <div class="order-details">
+    <h3>{{ product.title }}</h3>
+    <p>{{ product.info }}</p>
+    <p>
+      <strong>{{ product.price }} грн</strong>
+    </p>
+  </div>
+  <!-- Кнопка удаления -->
+  <button class="delete-button" (click)="confirmDelete(i)">🗑</button>
+</div>
+<button (click)="clearCart()" *ngIf="selectedProducts.length !== 0">
+  Оплатити
+</button>

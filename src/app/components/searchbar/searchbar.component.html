@@ -1,8 +1,8 @@
 <div class="serachbar">
   <img src="" alt="" />
   <div>
-    <input type="text" name="" id="" />
-    <button>Знайти</button>
+    <input type="text" name="" id="" [(ngModel)]="searchText" />
+    <button (click)="onSearch()">Знайти</button>
   </div>
   <div class="calback">
     <img src="" alt="" />
@@ -18,5 +18,4 @@
     <p>{{ userEmail }}</p>
     <button mat-button (click)="logout()">Вийти</button>
   </div>
-  <mat-icon fontIcon="compare" class="material-icons-outlined"></mat-icon>
 </div>

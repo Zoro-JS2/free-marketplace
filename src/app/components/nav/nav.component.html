@@ -10,4 +10,10 @@
   <li *ngIf="visible == true" class="create">
     <a href="createcard">Створити пропозицію</a>
   </li>
+  <li *ngIf="visible == true">
+    <a href="order"
+      ><mat-icon fontIcon="shop" class="material-icons-outlined"></mat-icon
+    ></a>
+    <span *ngIf="cartCount > 0" class="cart-counter">{{ cartCount }} шт</span>
+  </li>
 </nav>

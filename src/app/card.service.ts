@@ -38,4 +38,29 @@ export class CardService {
     const currentProducts = this.productsSource.value;
     this.productsSource.next([...currentProducts, product]);
   }
+  private cartItemsSubject = new BehaviorSubject<any[]>(
+    this.getCartFromLocalStorage()
+  );
+  cartItems$ = this.cartItemsSubject.asObservable();
+
+  private getCartFromLocalStorage(): any[] {
+    const stored = localStorage.getItem('selectedProducts');
+    return stored ? JSON.parse(stored) : [];
+  }
+
+  getCartCount(): number {
+    return this.cartItemsSubject.value.length;
+  }
+
+  addToCart(product: any): void {
+    const current = this.cartItemsSubject.value;
+    const updated = [...current, product];
+    this.cartItemsSubject.next(updated);
+    localStorage.setItem('selectedProducts', JSON.stringify(updated));
+  }
+
+  clearCart(): void {
+    this.cartItemsSubject.next([]);
+    localStorage.removeItem('selectedProducts');
+  }
 }
