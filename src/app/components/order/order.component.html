@@ -34,6 +34,13 @@
   <!-- Кнопка удаления -->
   <button class="delete-button" (click)="confirmDelete(i)">🗑</button>
 </div>
-<button (click)="clearCart()" *ngIf="selectedProducts.length !== 0">
-  Оплатити
-</button>
+
+<div>
+  <button
+    class="btn"
+    (click)="clearCart()"
+    *ngIf="selectedProducts.length !== 0"
+  >
+    <i class="animation"></i> Оплатити<i class="animation"></i>
+  </button>
+</div>
