@@ -1,2 +1,17 @@
 <app-nav></app-nav>
-<p>action works!</p>
+<div class="cardArea" *ngIf="visibleAll == true">
+  <div
+    class="row"
+    *ngFor="let chunk of [products.slice(0, 5), products.slice(5)]"
+  >
+    <app-card
+      *ngFor="let product of chunk"
+      [id]="product.id"
+      [title]="product.title"
+      [info]="product.info"
+      [price]="product.price"
+      [status]="product.status"
+      [image]="product.imageUrl"
+    ></app-card>
+  </div>
+</div>

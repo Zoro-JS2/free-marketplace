@@ -1,26 +1,35 @@
 <form class="form">
+  <h1>Розрахунок процентної ставки</h1>
   <span class="input-span">
-    <label for="number" class="label">Ціна товару</label>
+    <div class="input-container">
+      <input
+        placeholder="Ціна товару"
+        class="input-field"
+        type="number"
+        [(ngModel)]="price"
+        name="price"
+        (input)="calculateTotal()"
+        required
+      />
+      <label for="input-field" class="input-label">Ціна товару</label>
+      <span class="input-highlight"></span>
+    </div>
+  </span>
+
+  <div class="input-container">
     <input
+      placeholder="Процент"
+      class="input-field"
       type="number"
-      [(ngModel)]="price"
+      [(ngModel)]="percent"
       name="price"
       (input)="calculateTotal()"
       required
     />
-  </span>
-
-  <span class="input-span">
-    <label for="percent" class="label">Процент</label>
-    <input
-      type="number"
-      [(ngModel)]="percent"
-      name="percent"
-      (input)="calculateTotal()"
-      required
-    />
-  </span>
+    <label for="input-field" class="input-label">Процент</label>
+    <span class="input-highlight"></span>
+  </div>
 
   <span class="span">{{ totalPrice }} грн</span>
-  <button mat-button (click)="closeDialog()">Х</button>
+  <button mat-button (click)="closeDialog()">Закрити</button>
 </form>

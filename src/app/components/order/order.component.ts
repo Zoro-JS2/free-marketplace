@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavComponent } from '../nav/nav.component';
 import { CommonModule } from '@angular/common';
 import { LoginDialogService } from '../../login-dialog.service';
+import { LoginComponent } from '../login/login.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-order',
@@ -13,7 +15,10 @@ export class OrderComponent {
   selectedProducts: any[] = [];
   visible: boolean = false;
 
-  constructor(private loginDialogService: LoginDialogService) {}
+  constructor(
+    private loginDialogService: LoginDialogService,
+    private dialogRef: MatDialogRef<LoginComponent>
+  ) {}
 
   ngOnInit(): void {
     const stored = localStorage.getItem('selectedProducts');

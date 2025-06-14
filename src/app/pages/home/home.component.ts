@@ -58,8 +58,9 @@ export class HomeComponent {
       product.title.toLowerCase().includes()
     );
   }
-  onCardDeleted(title: string): void {
-    this.products = this.products.filter((product) => product.title !== title);
-    localStorage.setItem('products', JSON.stringify(this.products));
+  onCardDeleted(id: string): void {
+    const updated = this.products.filter((product) => product.id !== id);
+    localStorage.setItem('products', JSON.stringify(updated));
+    this.products = updated;
   }
 }

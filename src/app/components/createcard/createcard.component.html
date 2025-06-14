@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<form (submit)="publishCard()" enctype="multipart/form-data">
+<!-- <form (submit)="publishCard()" enctype="multipart/form-data">
   <label for="image">Завантажте фото:</label>
   <input type="file" (change)="onFileSelected($event)" accept="image/*" />
 
@@ -17,5 +17,48 @@
   <label>Ціна:</label>
   <input type="text" [(ngModel)]="price" name="price" required />
 
-  <button type="submit">Опубликовать</button>
+  <button type="submit">Створити</button>
+</form> -->
+
+<form class="form" (submit)="publishCard()" enctype="multipart/form-data">
+  <span class="title">Додати товар</span>
+  <label for="image">Завантажте фото:</label>
+  <input
+    #fileInput
+    type="file"
+    (change)="onFileSelected($event)"
+    accept="image/*"
+  />
+
+  <div *ngIf="imageUrl">
+    <p>Попередній перегляд:</p>
+    <img [src]="imageUrl" alt="Preview" style="max-width: 200px" />
+    <button type="button" (click)="removeImage()">Видалити зображення</button>
+  </div>
+
+  <input
+    type="text"
+    [(ngModel)]="title"
+    class="input"
+    name="title"
+    placeholder="Назва:"
+    required
+  />
+  <textarea
+    [(ngModel)]="info"
+    name="info"
+    class="input"
+    required
+    maxlength="50"
+    placeholder="Опис:"
+  ></textarea>
+  <input
+    type="text"
+    [(ngModel)]="price"
+    class="input"
+    placeholder="Ціна:"
+    name="price"
+    required
+  />
+  <button type="submit">Створити</button>
 </form>

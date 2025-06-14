@@ -14,6 +14,7 @@
       >
         <app-card
           *ngFor="let product of chunk"
+          [id]="product.id"
           [title]="product.title"
           [info]="product.info"
           [price]="product.price"
@@ -33,6 +34,7 @@
     >
       <app-card
         *ngFor="let product of chunk"
+        [id]="product.id"
         [title]="product.title"
         [info]="product.info"
         [price]="product.price"

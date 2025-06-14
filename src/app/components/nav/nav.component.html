@@ -3,7 +3,15 @@
     <img src="/public/LogoMarketplace.png" alt="" />
   </div>
   <li><a href="/">Головна</a></li>
-  <li><a href="about">Про нас</a></li>
+  <li class="dropdown" (click)="toggleDropdown($event)">
+    <a href="javascript:void(0)">Про нас</a>
+    <ul class="dropdown-menu" [class.show]="isDropdownOpen">
+      <li><a routerLink="/team">Наша команда</a></li>
+      <li><a routerLink="/mission">Наша місія</a></li>
+      <li><a routerLink="/history">Історія компанії</a></li>
+    </ul>
+  </li>
+
   <li><a href="contact">Контакти</a></li>
   <li><a href="payment">Оплата та доставка</a></li>
   <li><a href="action">Акція</a></li>

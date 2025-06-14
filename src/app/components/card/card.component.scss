@@ -1,11 +1,12 @@
 .card {
+  position: relative;
   --font-color: #323232;
   --font-color-sub: #666;
   --bg-color: #fff;
   --main-color: #323232;
   --main-focus: #2d8cf0;
-  width: 230px;
-  height: 300px;
+  width: 20em;
+  height: 20em;
   background: var(--bg-color);
   border: 2px solid var(--main-color);
   box-shadow: 4px 4px var(--main-color);
@@ -13,7 +14,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 20px;
+  padding: 1em;
   gap: 10px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -33,12 +34,12 @@
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .card:last-child {
-  justify-content: flex-end;
+  justify-content: center;
 }
 .cardImg {
   width: 8em;
-  height: 5em;
-  margin: 0 auto;
+  height: 6em;
+  object-fit: contain;
 }
 .card-title {
   font-size: 20px;
@@ -153,11 +154,20 @@
 }
 .no-image-text {
   text-align: center;
+  width: 20em;
+  height: 4em;
+  object-fit: contain;
 }
+
 .delete-button {
-  position: relative;
-  top: -3px;
-  right: 18px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   color: red;
+  width: 3em;
+  z-index: 2;
 }

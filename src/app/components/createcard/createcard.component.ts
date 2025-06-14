@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { NavComponent } from '../nav/nav.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,8 +20,8 @@ export class CreatecardComponent {
   title = '';
   info = '';
   price = '';
-  imageUrl: string | ArrayBuffer | null = null; // Для хранения изображения
-
+  imageUrl: string | null = null; // Для хранения изображения
+  @ViewChild('fileInput') fileInput!: ElementRef;
   constructor(private cardService: CardService) {}
 
   onFileSelected(event: any) {
@@ -23,19 +29,25 @@ export class CreatecardComponent {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.imageUrl = reader.result;
+        // Приводим к string
+        this.imageUrl = reader.result as string;
       };
       reader.readAsDataURL(file);
     }
   }
-
+  removeImage() {
+    this.imageUrl = null;
+    this.fileInput.nativeElement.value = ''; // Очистка поля input type="file"
+  }
   publishCard() {
     if (!this.title || !this.info || !this.price) {
       alert('Будь ласка, заповніть всі поля!');
+      console.log(this.title + ' ' + this.info + ' ' + this.price);
       return;
     }
 
     const newCard = {
+      id: crypto.randomUUID(),
       title: this.title,
       info: this.info,
       price: this.price,
@@ -53,6 +65,7 @@ export class CreatecardComponent {
     this.info = '';
     this.price = '';
     this.imageUrl = null;
+    this.fileInput.nativeElement.value = '';
 
     alert('Карточка успішно опублікована!');
   }
