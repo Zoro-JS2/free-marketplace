@@ -25,7 +25,13 @@
   >
   <h3>
     Післяплата «Новая почта» (оплата при отриманні)
-    <button (click)="calculate()">Розрахувати</button>
+    <!-- <button (click)="calculate()">Розрахувати</button> -->
+    <button class="learn-more" (click)="calculate()">
+      <span class="circle" aria-hidden="true">
+        <span class="icon arrow"></span>
+      </span>
+      <span class="button-text">Розрахувати</span>
+    </button>
   </h3>
 
   <span

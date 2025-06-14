@@ -10,6 +10,7 @@
         name="price"
         (input)="calculateTotal()"
         required
+        autocomplete="off"
       />
       <label for="input-field" class="input-label">Ціна товару</label>
       <span class="input-highlight"></span>
@@ -22,14 +23,15 @@
       class="input-field"
       type="number"
       [(ngModel)]="percent"
-      name="price"
+      name="percent"
       (input)="calculateTotal()"
-      required
+      readonly
     />
     <label for="input-field" class="input-label">Процент</label>
     <span class="input-highlight"></span>
   </div>
 
-  <span class="span">{{ totalPrice }} грн</span>
+  <span class="span">Загальна ціна складе {{ price }}+ 2% + 20грн </span>
+  <span>{{ totalPrice }} грн</span>
   <button mat-button (click)="closeDialog()">Закрити</button>
 </form>
