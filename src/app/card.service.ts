@@ -44,8 +44,11 @@ export class CardService {
   cartItems$ = this.cartItemsSubject.asObservable();
 
   private getCartFromLocalStorage(): any[] {
-    const stored = localStorage.getItem('selectedProducts');
-    return stored ? JSON.parse(stored) : [];
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const stored = localStorage.getItem('selectedProducts');
+      return stored ? JSON.parse(stored) : [];
+    }
+    return []; // безопасный fallback
   }
 
   getCartCount(): number {

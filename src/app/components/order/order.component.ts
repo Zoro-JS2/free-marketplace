@@ -15,22 +15,34 @@ export class OrderComponent {
   selectedProducts: any[] = [];
   visible: boolean = false;
 
-  constructor(
-    private loginDialogService: LoginDialogService,
-    private dialogRef: MatDialogRef<LoginComponent>
-  ) {}
+  constructor(private loginDialogService: LoginDialogService) {}
 
   ngOnInit(): void {
-    const stored = localStorage.getItem('selectedProducts');
-    this.selectedProducts = stored ? JSON.parse(stored) : [];
+    if (typeof window !== 'undefined' && localStorage) {
+      const stored = localStorage.getItem('selectedProducts');
+      this.selectedProducts = stored ? JSON.parse(stored) : [];
+    } else {
+      this.selectedProducts = [];
+    }
 
     this.checkUser();
   }
-  checkUser() {
-    const user = localStorage.getItem('user');
-    if (user) {
-      this.visible = true;
+  // checkUser() {
+  //   const user = localStorage.getItem('user');
+  //   if (user) {
+  //     this.visible = true;
+  //   }
+  // }
+
+  private checkUser(): any[] {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const user = localStorage.getItem('user');
+      return user ? JSON.parse(user) : [];
+      if (user) {
+        this.visible = true;
+      }
     }
+    return []; // безопасный fallback
   }
   clearCart() {
     if (this.visible == true) {

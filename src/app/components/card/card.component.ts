@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CardService } from '../../card.service';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-card',
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, FormsModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
 })
@@ -18,10 +19,11 @@ export class CardComponent {
   @Input() id!: string;
   @Output() deleted = new EventEmitter<string>();
   visible: boolean = false;
-  editing = false;
+  editing: boolean = false;
   oldPrice = '';
   editedInfo = '';
   editedPrice = '';
+  tempPrice: string = '';
   constructor(private CardService: CardService) {}
   ngOnInit() {
     this.checkUser();
@@ -29,8 +31,16 @@ export class CardComponent {
     this.editedInfo = this.info;
     this.editedPrice = this.price;
   }
-  editCard(product?: any) {
-    this.editing = true;
+  editCard() {
+    if (!this.editing) {
+      // Входим в режим редактирования
+      this.tempPrice = this.price;
+      this.editing = true;
+    } else {
+      // Выходим из режима, применяем новую цену
+      this.price = this.tempPrice;
+      this.editing = false;
+    }
   }
   checkUser() {
     const user = localStorage.getItem('user');

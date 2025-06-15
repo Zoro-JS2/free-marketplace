@@ -18,8 +18,13 @@
   </div>
   <hr class="card-divider" />
   <div class="card-footer">
-    <div class="card-price">{{ price }}<span> грн</span></div>
-
+    <div *ngIf="!editing" class="card-price">{{ price }}<span> грн</span></div>
+    <input
+      *ngIf="editing"
+      type="number"
+      [(ngModel)]="tempPrice"
+      (click)="$event.stopPropagation()"
+    />
     <a class="codepen-button"
       ><span class="span" (click)="addToOrder()"
         ><p class="p">Shop</p>

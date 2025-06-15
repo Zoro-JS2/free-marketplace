@@ -18,14 +18,20 @@ export class HomeComponent {
   constructor(private cardService: CardService) {}
 
   ngOnInit() {
-    const stored = localStorage.getItem('products');
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('products');
 
-    if (stored?.length == 0) {
-      this.loadProducts();
+      if (!stored || stored.length === 0) {
+        this.loadProducts();
+      } else {
+        this.products = JSON.parse(stored);
+      }
     } else {
-      this.products = stored ? JSON.parse(stored) : [];
+      // SSR fallback: можно либо ничего не делать, либо загрузить продукты
+      this.products = [];
     }
   }
+
   loadProducts() {
     const storedCards = JSON.parse(localStorage.getItem('products') || '[]');
 

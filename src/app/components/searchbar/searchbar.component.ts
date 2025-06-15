@@ -22,9 +22,12 @@ export class SearchbarComponent {
     this.searchTextChanged.emit(this.searchText);
   }
   checkUser() {
-    const user = localStorage.getItem('user');
-    if (user) {
-      this.userEmail = JSON.parse(user).email;
+    if (typeof window !== 'undefined') {
+      const user = localStorage.getItem('user');
+
+      if (user) {
+        this.userEmail = JSON.parse(user).email;
+      }
     }
   }
   openLoginDialog() {

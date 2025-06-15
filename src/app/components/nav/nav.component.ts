@@ -22,13 +22,15 @@ export class NavComponent {
     });
   }
   checkUser() {
-    const user = localStorage.getItem('user');
-    if (user) {
-      this.visible = true;
+    if (typeof window !== 'undefined') {
+      const user = localStorage.getItem('user');
+      this.visible = !!user;
+    } else {
+      this.visible = false;
     }
   }
   toggleDropdown(event: MouseEvent) {
-    event.stopPropagation(); // предотвращает закрытие при клике по самому элементу
+    event.stopPropagation();
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 

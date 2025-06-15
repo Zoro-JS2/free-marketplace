@@ -102,3 +102,10 @@ button:hover .circle .icon.arrow {
 button:hover .button-text {
   color: #fff;
 }
+.features-grid {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
