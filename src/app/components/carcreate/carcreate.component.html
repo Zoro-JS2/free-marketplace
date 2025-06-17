@@ -1,20 +1,63 @@
 <app-nav></app-nav>
-<form (ngSubmit)="addCar()" class="carcreate">
-  <input [(ngModel)]="brand" name="brand" placeholder="Марка" required />
-  <input [(ngModel)]="model" name="model" placeholder="Модель" required />
-  <button type="submit">Создать</button>
-</form>
+<div class="header-cars-area">
+  <form (ngSubmit)="addCar()" class="carcreate">
+    <div class="group">
+      <input
+        [(ngModel)]="brand"
+        name="brand"
+        placeholder="Марка"
+        required
+        type="search"
+        class="inputcar"
+      />
+      <input
+        [(ngModel)]="model"
+        name="model"
+        placeholder="Модель"
+        required
+        type="search"
+        class="inputcar"
+      />
+    </div>
+    <!-- <input [(ngModel)]="brand" name="brand" placeholder="Марка" required />
+  <input [(ngModel)]="model" name="model" placeholder="Модель" required /> -->
+    <button type="submit" class="btn-cars">Создать</button>
+  </form>
+  <div class="searchbycar">
+    <input
+      type="text"
+      autocomplete="off"
+      [(ngModel)]="searchTerm"
+      placeholder="Пошук марки або моделі"
+      class="input"
+    />
+  </div>
+</div>
 <div class="listcars">
-  <div *ngFor="let brand of objectKeys(carFolders)">
+  <div *ngFor="let brand of objectKeys(filteredCarFolders)">
     <div style="margin-top: 1em">
-      <strong>📁 {{ brand }}</strong>
+      <!-- 📁 с кликом по названию марки -->
+      <strong (click)="toggleBrand(brand)" style="cursor: pointer">
+        📁 {{ brand }}
+        <span>
+          {{ expandedBrands[brand] ? "⬆️" : "⬇️" }}
+        </span>
+      </strong>
       <button (click)="deleteBrand(brand)" style="color: red">
-        [Удалить марку]
+        Удалить марку
       </button>
-      <ul>
-        <li *ngFor="let model of carFolders[brand]">
+
+      <ul *ngIf="expandedBrands[brand]">
+        <li *ngFor="let model of filteredCarFolders[brand]">
           📄 {{ model }}
-          <button (click)="deleteModel(brand, model)">[Удалить]</button>
+
+          <button (click)="deleteModel(brand, model)">
+            <mat-icon class="delete-model">delete</mat-icon>
+          </button>
+
+          <button (click)="findBrand(brand, model)" class="btn">
+            Пошук по машині
+          </button>
         </li>
       </ul>
     </div>

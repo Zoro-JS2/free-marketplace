@@ -1,72 +1,14 @@
-// import { CommonModule } from '@angular/common';
-// import { Component } from '@angular/core';
-// import { FormsModule } from '@angular/forms';
-// import { NavComponent } from '../nav/nav.component';
-
-// @Component({
-//   selector: 'app-carcreate',
-//   imports: [CommonModule, FormsModule, NavComponent],
-//   templateUrl: './carcreate.component.html',
-//   styleUrl: './carcreate.component.scss',
-// })
-// export class CarcreateComponent {
-//   brand = '';
-//   model = '';
-//   carFolders: { [brand: string]: string[] } = {};
-//   objectKeys = Object.keys;
-
-//   ngOnInit() {
-//     if (typeof window !== 'undefined') {
-//       const saved = localStorage.getItem('carFolders');
-//       if (saved) {
-//         this.carFolders = JSON.parse(saved);
-//       }
-//     }
-//   }
-//   addCar() {
-//     const brandKey = this.brand.trim().toUpperCase();
-//     const modelKey = this.model.trim().toLowerCase().replace(/\s+/g, '');
-
-//     if (!this.carFolders[brandKey]) {
-//       this.carFolders[brandKey] = [];
-//     }
-
-//     if (!this.carFolders[brandKey].includes(modelKey)) {
-//       this.carFolders[brandKey].push(modelKey);
-//     }
-
-//     this.saveToStorage();
-//     this.brand = '';
-//     this.model = '';
-//   }
-
-//   deleteModel(brand: string, model: string) {
-//     this.carFolders[brand] = this.carFolders[brand].filter((m) => m !== model);
-//     if (this.carFolders[brand].length === 0) {
-//       delete this.carFolders[brand];
-//     }
-//     this.saveToStorage();
-//   }
-
-//   deleteBrand(brand: string) {
-//     delete this.carFolders[brand];
-//     this.saveToStorage();
-//   }
-
-//   saveToStorage() {
-//     localStorage.setItem('carFolders', JSON.stringify(this.carFolders));
-//   }
-// }
 import { Component, OnInit } from '@angular/core';
 import { CarApiService } from '../../services/car-api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavComponent } from '../nav/nav.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-carcreate',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavComponent],
+  imports: [CommonModule, FormsModule, NavComponent, MatIconModule],
   templateUrl: './carcreate.component.html',
   styleUrl: './carcreate.component.scss',
 })
@@ -75,7 +17,8 @@ export class CarcreateComponent implements OnInit {
   model = '';
   carFolders: { [brand: string]: string[] } = {};
   objectKeys = Object.keys;
-
+  expandedBrands: { [brand: string]: boolean } = {};
+  searchTerm: string = '';
   constructor(private carApi: CarApiService) {}
 
   ngOnInit() {
@@ -110,5 +53,41 @@ export class CarcreateComponent implements OnInit {
     models.forEach((model) => {
       this.carApi.deleteModel(brand, model).subscribe(() => this.loadCars());
     });
+  }
+  findBrand(brand: string, model: string) {
+    const query = `${brand} ${model}`;
+    const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    window.open(url, '_blank'); // откроет в новой вкладке
+  }
+  toggleBrand(brand: string) {
+    this.expandedBrands[brand] = !this.expandedBrands[brand];
+  }
+  get filteredCarFolders() {
+    const term = this.searchTerm.trim().toLowerCase();
+
+    if (!term) return this.carFolders;
+
+    const filtered: { [brand: string]: string[] } = {};
+
+    for (const brand of Object.keys(this.carFolders)) {
+      const lowerBrand = brand.toLowerCase();
+
+      // Если совпадает марка
+      if (lowerBrand.includes(term)) {
+        filtered[brand] = this.carFolders[brand];
+        continue;
+      }
+
+      // Если совпадает модель
+      const matchedModels = this.carFolders[brand].filter((model) =>
+        model.toLowerCase().includes(term)
+      );
+
+      if (matchedModels.length > 0) {
+        filtered[brand] = matchedModels;
+      }
+    }
+
+    return filtered;
   }
 }
