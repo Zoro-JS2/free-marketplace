@@ -33,7 +33,12 @@
     />
   </div>
 </div>
-<div class="listcars">
+<div>
+  <div *ngIf="serverError" style="color: red">
+    🚫 Не вдалося з'єднатися з сервером. Спробуйте пізніше.
+  </div>
+</div>
+<div class="listcars" *ngIf="!serverError">
   <div *ngFor="let brand of objectKeys(filteredCarFolders)">
     <div style="margin-top: 1em">
       <!-- 📁 с кликом по названию марки -->

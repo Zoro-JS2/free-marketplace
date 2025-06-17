@@ -15,22 +15,30 @@ import { MatIconModule } from '@angular/material/icon';
 export class CarcreateComponent implements OnInit {
   brand = '';
   model = '';
+  searchTerm: string = '';
+  serverError: boolean = false;
+  constructor(private carApi: CarApiService) {}
+  expandedBrands: { [brand: string]: boolean } = {};
   carFolders: { [brand: string]: string[] } = {};
   objectKeys = Object.keys;
-  expandedBrands: { [brand: string]: boolean } = {};
-  searchTerm: string = '';
-  constructor(private carApi: CarApiService) {}
 
   ngOnInit() {
     this.loadCars();
   }
 
   loadCars() {
-    this.carApi.getCars().subscribe((cars) => {
-      this.carFolders = {};
-      for (const car of cars) {
-        this.carFolders[car.brand] = car.models;
-      }
+    this.carApi.getCars().subscribe({
+      next: (cars) => {
+        this.carFolders = {};
+        for (const car of cars) {
+          this.carFolders[car.brand] = car.models;
+        }
+        this.serverError = false;
+      },
+      error: (err) => {
+        console.error('Помилка з’єднання з сервером:', err);
+        this.serverError = true;
+      },
     });
   }
 
