@@ -1,0 +1,22 @@
+<app-nav></app-nav>
+<form (ngSubmit)="addCar()" class="carcreate">
+  <input [(ngModel)]="brand" name="brand" placeholder="Марка" required />
+  <input [(ngModel)]="model" name="model" placeholder="Модель" required />
+  <button type="submit">Создать</button>
+</form>
+<div class="listcars">
+  <div *ngFor="let brand of objectKeys(carFolders)">
+    <div style="margin-top: 1em">
+      <strong>📁 {{ brand }}</strong>
+      <button (click)="deleteBrand(brand)" style="color: red">
+        [Удалить марку]
+      </button>
+      <ul>
+        <li *ngFor="let model of carFolders[brand]">
+          📄 {{ model }}
+          <button (click)="deleteModel(brand, model)">[Удалить]</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

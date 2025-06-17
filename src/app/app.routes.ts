@@ -9,6 +9,7 @@ import { OrderComponent } from './components/order/order.component';
 import { InfobayComponent } from './components/infobay/infobay.component';
 import { StoreComponent } from './components/store/store.component';
 import { VacantionsComponent } from './components/vacantions/vacantions.component';
+import { CarcreateComponent } from './components/carcreate/carcreate.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'store', component: StoreComponent },
   { path: 'vacantions', component: VacantionsComponent },
   { path: 'order', component: OrderComponent },
+  { path: 'createauto', component: CarcreateComponent },
 
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

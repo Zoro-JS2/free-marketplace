@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { LoginComponent } from '../login/login.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-calculated-modal',

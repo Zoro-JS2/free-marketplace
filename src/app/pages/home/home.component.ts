@@ -27,7 +27,6 @@ export class HomeComponent {
         this.products = JSON.parse(stored);
       }
     } else {
-      // SSR fallback: можно либо ничего не делать, либо загрузить продукты
       this.products = [];
     }
   }
